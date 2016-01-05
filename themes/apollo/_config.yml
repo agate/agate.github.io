@@ -1,0 +1,18 @@
+menu:
+    blog: /
+    rss: /atom.xml
+    weibo: http://weibo.com/honghao86
+    github: https://github.com/agate
+
+favicon: /favicon.png
+logo: /favicon.png
+
+# comment
+# e.g disqus: seansun
+disqus: 
+duoshuo: 
+
+# google-analytics:
+ga: 
+# baidu-analytics:
+ba: 
