@@ -13,8 +13,7 @@ mixin posts()
                             != item.title
                     +postInfo( item )
                     .post-content
-                        != item.excerpt
-                    a.read-more(href=item.path) ... more
+                        != item.content
         - })
 
 mixin post(item)
