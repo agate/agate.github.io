@@ -1,6 +1,7 @@
 title: Gem Install SSL Errors
 date: 2016-03-21 13:16:28
 tags:
+  - ruby
 ---
 这几天老是发现 gem / bundle install 的时候出现这样的错误:
 

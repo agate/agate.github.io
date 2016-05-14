@@ -7,4 +7,4 @@ hexo new 'xxx'
 hexo server
 
 # deploy to github
-hexo deploy
+rm -rf public; hexo deploy
