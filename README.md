@@ -1,10 +1,10 @@
 this blog is using hexo.
 
 # create a new post
-hexo new 'xxx'
+./node_modules/.bin/hexo new 'xxx'
 
 # live preview
-hexo server
+./node_modules/.bin/hexo server
 
 # deploy to github
-rm -rf public; hexo deploy
+rm -rf public; ./node_modules/.bin/hexo deploy
