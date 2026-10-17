@@ -1,13 +1,14 @@
 ---
 import '../styles/global.css';
 import LangToggle from '../components/LangToggle.astro';
+import { AUTHOR, DOMAIN, GITHUB_URL } from '../../site.config.mjs';
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = 'Hong Hao — software engineer and tinkerer. Projects and thoughts.' } = Astro.props;
+const { title, description = `${AUTHOR.en} — software engineer and tinkerer. Projects and thoughts.` } = Astro.props;
 ---
 
 <!doctype html>
@@ -45,7 +46,7 @@ const { title, description = 'Hong Hao — software engineer and tinkerer. Proje
   <body>
     <header class="wrap">
       <nav class="mono">
-        <a href="/" class="home">honghao.me</a>
+        <a href="/" class="home">{DOMAIN}</a>
         <div class="links">
           <a href="/#projects"><span lang="en">Projects</span><span lang="zh">作品</span></a>
           <a href="/#thoughts"><span lang="en">Thoughts</span><span lang="zh">想法</span></a>
@@ -58,7 +59,9 @@ const { title, description = 'Hong Hao — software engineer and tinkerer. Proje
       <slot />
     </main>
     <footer class="wrap mono">
-      <div class="foot"><a href="https://github.com/agate">github.com/agate</a> · honghao.me</div>
+      <div class="foot">
+        <a href="/">← {DOMAIN}</a> · <a href={GITHUB_URL}>{GITHUB_URL.replace('https://', '')}</a>
+      </div>
     </footer>
   </body>
 </html>

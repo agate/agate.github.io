@@ -1,6 +1,7 @@
 ---
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import { AUTHOR } from '../../../site.config.mjs';
 import { getThoughts, formatDate, type Lang } from '../../data/thoughts';
 
 export async function getStaticPaths() {
@@ -22,7 +23,7 @@ const rendered = await Promise.all(
 const title = (thought.versions.en ?? thought.versions.zh!).data.title;
 ---
 
-<Base title={`${title} — Hong Hao`}>
+<Base title={`${title} — ${AUTHOR.en}`}>
   <article>
     <a href="/#thoughts" class="mono back"><span lang="en">← Thoughts</span><span lang="zh">← 想法</span></a>
     {

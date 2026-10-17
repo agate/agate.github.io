@@ -39,6 +39,10 @@ Add an entry to `src/data/projects.ts`. Icons are isometric line drawings genera
 python3 scripts/gen_icons.py   # writes src/icons/*.svg
 ```
 
+## Domain and author
+
+Change the domain or the author name in `site.config.mjs` only. For a new domain, also update DNS and the custom domain in **Settings → Pages**.
+
 ## Language
 
 Every visible string is written twice, `<span lang="en">` and `<span lang="zh">`. The `EN / 中` toggle sets `data-lang` on `<html>` and CSS hides the other language. The choice is saved in `localStorage`; `?lang=zh` or `?lang=en` in a URL overrides it.

@@ -1,8 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
+import { AUTHOR } from '../../site.config.mjs';
 ---
 
-<Base title="Not found — Hong Hao">
+<Base title={`Not found — ${AUTHOR.en}`}>
   <section>
     <div class="mono">404</div>
     <h1><span lang="en">Nothing here yet.</span><span lang="zh">这里还什么都没有。</span></h1>

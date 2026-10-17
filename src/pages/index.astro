@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { AUTHOR, GITHUB_URL } from '../../site.config.mjs';
 import { projects } from '../data/projects';
 import { getThoughts, formatDate } from '../data/thoughts';
 
@@ -8,7 +9,7 @@ const shipped = projects.filter((p) => p.status !== 'soon').length;
 const building = projects.filter((p) => p.status === 'building').length;
 ---
 
-<Base title="Hong Hao">
+<Base title={AUTHOR.en}>
   <section class="hero">
     <div class="mono">
       <span lang="en">Software engineer · Tinkerer</span><span lang="zh">软件工程师 · 爱捣鼓</span>
@@ -16,11 +17,11 @@ const building = projects.filter((p) => p.status === 'building').length;
     <h1 lang="en">I build small things,<br /><em>then keep building.</em></h1>
     <h1 lang="zh">做一些小东西，<br />然后接着做下去。</h1>
     <p class="lede" lang="en">
-      I'm Hong Hao, a software engineer who likes making fun things — lights in a menu bar, a keyboard I configured
+      I'm {AUTHOR.en}, a software engineer who likes making fun things — lights in a menu bar, a keyboard I configured
       myself, and now classical Chinese poems turned into pictures with AI.
     </p>
     <p class="lede" lang="zh">
-      我是 Hong Hao，一个软件工程师。喜欢捣鼓好玩的东西：菜单栏里的小灯、自己配的键盘，现在在用 AI 把古诗变成画。
+      我是 {AUTHOR.zh}，一个软件工程师。喜欢捣鼓好玩的东西：菜单栏里的小灯、自己配的键盘，现在在用 AI 把古诗变成画。
     </p>
     <div class="stats mono">
       <span lang="en">{shipped} projects</span><span lang="zh">{shipped} 个作品</span>
@@ -86,11 +87,11 @@ const building = projects.filter((p) => p.status === 'building').length;
       <h2><span lang="en">About</span><span lang="zh">关于</span></h2>
       <p lang="en">
         I write software for a living and for fun. This site is where the side projects and the ideas behind them live.
-        Find my code on <a href="https://github.com/agate">GitHub</a>.
+        Find my code on <a href={GITHUB_URL}>GitHub</a>.
       </p>
       <p lang="zh">
         写代码是我的工作，也是我的爱好。这里放我的业余作品，和它们背后的想法。代码都在
-        <a href="https://github.com/agate">GitHub</a> 上。
+        <a href={GITHUB_URL}>GitHub</a> 上。
       </p>
     </div>
   </section>

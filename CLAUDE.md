@@ -1,6 +1,6 @@
 # honghao.me
 
-Hong Hao's personal site: projects and thoughts. Astro static site, deployed to GitHub Pages (`https://honghao.me`) by `.github/workflows/deploy.yml` on every push to `main`.
+Hong, Hao's personal site: projects and thoughts. Astro static site, deployed to GitHub Pages (`https://honghao.me`) by `.github/workflows/deploy.yml` on every push to `main`.
 
 Three things define this site and must survive every change:
 
@@ -10,9 +10,18 @@ Three things define this site and must survive every change:
 
 The style comes from https://skills.wheresryan.sh/anatomy/how-i-built-it (near-white ground, ink-black hairlines, numbered sections, isometric figures drawn by code rather than by hand). When in doubt, look at that page and at the live site.
 
+## Domain, author name, and links home
+
+- `site.config.mjs` is the only place that names the domain (`DOMAIN`, `SITE_URL`), the author (`AUTHOR`), and the GitHub account. `astro.config.mjs` and all pages import from it. Never hard-code `honghao.me`, the author's name, or `github.com/agate` in components.
+- The author's name is **`Hong, Hao`** — surname first, marked with a comma — in **both** English and Chinese copy. Never write "Hong Hao" without the comma or "Hao Hong".
+- Internal links are relative (`/`, `/#projects`, `/claude-lights/`), never `https://honghao.me/...`, so a domain change needs no link edits.
+- **Every page's footer links back to the main domain's home page** with a relative `href="/"`. `Base.astro` does this for this site. Sub-sites served under the same domain (GitHub Pages project pages from other `agate/*` repos, e.g. `agate/claude-lights` → `/claude-lights/`) must have the same footer link; see that repo's `site/index.html`.
+- To change the domain: edit `DOMAIN` in `site.config.mjs`, update DNS, then set the new custom domain in this repo's **Settings → Pages** (the Actions deploy ignores CNAME files, so there is none in `public/`). Sub-sites follow automatically.
+
 ## Layout
 
 ```
+site.config.mjs                   domain, author name, GitHub account (single source of truth)
 scripts/gen_icons.py              isometric icon generator (source of truth for all art)
 src/icons/*.svg                   generated output — never edit by hand
 src/data/projects.ts              project list (bilingual data + icon)
@@ -87,7 +96,7 @@ html[data-lang='zh'] [lang='en'] { display: none !important; }
 Rules:
 
 - **Every user-visible string is written twice**, as sibling elements: `<span lang="en">…</span><span lang="zh">…</span>` (or `h1`, `p`, etc.). This includes nav, headings, body copy, buttons, stats, dates, notes, and the 404 page.
-- **Never mix languages in one string.** The English version is all English, the Chinese version is all Chinese. Proper nouns stay as they are in both (claude-lights, Claude Code, ZMK, Corne, GitHub, AI, Hong Hao).
+- **Never mix languages in one string.** The English version is all English, the Chinese version is all Chinese. Proper nouns stay as they are in both (claude-lights, Claude Code, ZMK, Corne, GitHub, AI, and the author name from `AUTHOR`).
 - Chinese copy uses full-width punctuation (，。：「」).
 - Data is shaped `{ en: string; zh: string }` (see `Project` in `src/data/projects.ts`). Render both fields.
 - Dates go through `formatDate(date, lang)` and are rendered once per language.
@@ -119,5 +128,4 @@ Rules:
 
 - Pushing to `main` deploys in about a minute. Check with `gh run list -R agate/agate.github.io`.
 - On this machine the SSH certificate can only push to the company GitHub org, so this repo's `origin` uses HTTPS with `gh auth git-credential` (configured in the local `.git/config`). Do not switch it back to SSH.
-- `public/CNAME` must stay `honghao.me`.
 - The old 2016–2017 Hexo blog lives in `agate/blog-2017`; its posts are intentionally not migrated.

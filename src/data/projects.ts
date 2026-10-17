@@ -23,7 +23,7 @@ export const projects: Project[] = [
     },
     status: 'shipped',
     icon: lights,
-    url: 'https://honghao.me/claude-lights/',
+    url: '/claude-lights/',
   },
   {
     name: { en: 'AI Poetry', zh: 'AI 古诗' },
