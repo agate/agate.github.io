@@ -1,0 +1,55 @@
+<span class="toggle" role="group" aria-label="Language">
+  <button type="button" data-set-lang="en">EN</button>
+  <button type="button" data-set-lang="zh">中</button>
+</span>
+
+<script>
+  const root = document.documentElement;
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-set-lang]');
+
+  function apply(lang: string) {
+    root.dataset.lang = lang;
+    root.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
+  }
+
+  apply(root.dataset.lang ?? 'en');
+  buttons.forEach((b) =>
+    b.addEventListener('click', () => {
+      const lang = b.dataset.setLang ?? 'en';
+      apply(lang);
+      try {
+        localStorage.setItem('lang', lang);
+      } catch {
+        // Private mode or blocked storage: the toggle still works for this page view.
+      }
+    }),
+  );
+</script>
+
+<style>
+  .toggle {
+    display: inline-flex;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  button {
+    all: unset;
+    cursor: pointer;
+    padding: 2px 10px;
+    font: 11px var(--mono);
+    color: var(--ink);
+  }
+
+  button[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--ground);
+  }
+
+  button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: -4px;
+  }
+</style>

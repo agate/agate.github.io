@@ -1,0 +1,109 @@
+---
+import '../styles/global.css';
+import LangToggle from '../components/LangToggle.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Hong Hao — software engineer and tinkerer. Projects and thoughts.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=JetBrains+Mono&family=Noto+Sans+SC:wght@400;500&family=Noto+Serif+SC:wght@400;600&display=swap"
+    />
+    <script is:inline>
+      // Pick the language before first paint so the page never flashes the wrong one.
+      (function () {
+        // Priority: ?lang= in the URL (for sharing a link in one language), then the saved choice, then the browser.
+        var lang = new URLSearchParams(location.search).get('lang');
+        if (lang !== 'en' && lang !== 'zh') {
+          try {
+            lang = localStorage.getItem('lang');
+          } catch (e) {}
+        }
+        if (lang !== 'en' && lang !== 'zh') {
+          lang = /^zh/i.test(navigator.language || '') ? 'zh' : 'en';
+        }
+        document.documentElement.dataset.lang = lang;
+        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="wrap">
+      <nav class="mono">
+        <a href="/" class="home">honghao.me</a>
+        <div class="links">
+          <a href="/#projects"><span lang="en">Projects</span><span lang="zh">作品</span></a>
+          <a href="/#thoughts"><span lang="en">Thoughts</span><span lang="zh">想法</span></a>
+          <a href="/#about"><span lang="en">About</span><span lang="zh">关于</span></a>
+          <LangToggle />
+        </div>
+      </nav>
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+    <footer class="wrap mono">
+      <div class="foot"><a href="https://github.com/agate">github.com/agate</a> · honghao.me</div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--rule);
+    padding: 20px 0 12px;
+    margin-bottom: 56px;
+  }
+
+  nav a {
+    text-decoration: none;
+  }
+
+  nav a:hover {
+    color: var(--ink);
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .foot {
+    border-top: 1px solid var(--rule);
+    padding: 12px 0 40px;
+    margin-top: 8px;
+  }
+
+  footer a {
+    text-decoration: none;
+  }
+
+  @media (max-width: 640px) {
+    nav {
+      margin-bottom: 40px;
+    }
+
+    .links {
+      gap: 12px;
+    }
+  }
+</style>

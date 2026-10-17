@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="21.9 -4.4 116.2 94.4" width="160" height="130" role="img" aria-label="Next: an empty dashed box waiting for the next project" stroke-linejoin="round" stroke-linecap="round">
+    <polygon points="38.4,62.0 80.0,86.0 80.0,47.6 38.4,23.6" fill="none" stroke="#171717" stroke-width="1" stroke-dasharray="3 3"/>
+    <polygon points="121.6,62.0 80.0,86.0 80.0,47.6 121.6,23.6" fill="none" stroke="#171717" stroke-width="1" stroke-dasharray="3 3"/>
+    <polygon points="80.0,-0.4 121.6,23.6 80.0,47.6 38.4,23.6" fill="none" stroke="#171717" stroke-width="1" stroke-dasharray="3 3"/>
+    <path d="M73.0,23.6 H87.0 M80.0,16.6 V30.6" stroke="#171717" stroke-width="1.2"/>
+  </svg>
