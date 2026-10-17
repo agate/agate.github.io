@@ -114,16 +114,19 @@ def scroll():
 
 def keyboard():
     g = Iso(7.2, 80, 22)
-    def half(ox):
-        g.box(ox, 0, 0, 6.6, 4.2, 0.5)
-        stagger = [0.3, 0.3, 0.1, 0, 0.1, 0.2]  # column stagger like a Corne
-        for c in range(6):
-            for r in range(3):
-                g.box(ox + 0.2 + c * 1.05, 0.2 + r * 1.05 + stagger[c], 0.5, 0.85, 0.85, 0.35)
-        for k in range(3):
-            g.box(ox + 3.3 + k * 1.05, 3.45, 0.5, 0.85, 0.65, 0.35, top="#f6f6f6")
-    half(0)
-    half(8.2)
+    W = 6.6
+    def half(ox, mirror):
+        # the right half is the left half mirrored: stagger reversed, thumb keys on the inner (left) side
+        def kx(x, w):
+            return ox + (W - x - w if mirror else x)
+        g.box(ox, 0, 0, W, 4.2, 0.5)
+        stagger = [0.3, 0.3, 0.1, 0, 0.1, 0.2]  # left half, outer pinky column first, like a Corne
+        keys = [(kx(0.2 + c * 1.05, 0.85), 0.2 + r * 1.05 + stagger[c], 0.85, TOP) for c in range(6) for r in range(3)]
+        keys += [(kx(3.3 + k * 1.05, 0.85), 3.45, 0.65, "#f6f6f6") for k in range(3)]  # thumb keys
+        for x, y, d, top in sorted(keys, key=lambda k: k[0] + k[1]):  # painter's order: far to near
+            g.box(x, y, 0.5, 0.85, d, 0.35, top=top)
+    half(0, mirror=False)
+    half(8.2, mirror=True)
     # TRRS cable between the halves, drawn first so the halves sit on top of it
     (x1, y1), (x2, y2) = g.p(6.6, 0.6, 0.25), g.p(8.2, 0.6, 0.25)
     (cx, cy) = g.p(7.4, -1.2, 0)
