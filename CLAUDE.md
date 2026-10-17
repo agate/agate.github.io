@@ -73,12 +73,12 @@ Each project gets one real, physical object that stands for it. Work through the
 
 - Fonts are tokens in `src/styles/global.css`. Components use only `var(--head)`, `var(--body)`, and `var(--mono)` — never a literal font-family.
   - English: headings Instrument Serif, body Inter.
-  - Chinese: headings Noto Serif SC, body Noto Sans SC.
+  - Chinese: LXGW WenKai (霞鹜文楷) for headings and body, chosen for its classical, hand-copied-book feel. Chinese body text lists Inter first so Latin words inside it (Claude Code, AI) stay in Inter; headings use WenKai alone, because Instrument Serif has no bold and the 600-weight card titles would be faux-bolded.
   - Metadata (dates, section numbers, tags, nav, footer): JetBrains Mono, 11px, `letter-spacing: .04em`, color `var(--muted)`, via the `.mono` class.
 - `--head` and `--body` switch automatically with the language; do not add per-language font rules in components.
 - Headings are weight 400 (Instrument Serif has only 400). Chinese headings may use 600 where an English heading would be visually heavier.
 - Chinese text runs slightly smaller with taller line height than English. Follow the existing `:global(html[data-lang='zh'])` overrides when adding a new text style.
-- Any new font family must be added to the Google Fonts `<link>` in `Base.astro` and as a token in `global.css`.
+- Any new font family must be added to the Google Fonts `<link>` in `Base.astro` and as a token in `global.css`. The one exception is LXGW WenKai, loaded from jsDelivr (`lxgw-wenkai-webfont`, regular + bold only): Google Fonts has only the Traditional build (`LXGW WenKai TC`), which centers `，。` mid-line instead of placing them low-left as Simplified Chinese does.
 - Colors come only from the `:root` tokens (`--ground`, `--ink`, `--soft`, `--muted`, `--faint`, `--rule`) plus the icon accents above.
 - Structure is drawn with 1px `var(--rule)` hairlines and dotted `var(--faint)` list separators. No box shadows, no rounded cards, no colored backgrounds. The only rounded elements are pill tags (`.tag`, `.tag.live`, `.tag.dash`) and the language toggle.
 - Page sections are numbered `01`, `02`, … in mono to the left of the heading (`.sec` grid on the home page).

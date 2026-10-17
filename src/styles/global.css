@@ -9,8 +9,8 @@
   /* Font pairing: serif headings, sans body. Swap these to change the whole site. */
   --en-head: 'Instrument Serif', Georgia, serif;
   --en-body: 'Inter', system-ui, sans-serif;
-  --zh-head: 'Noto Serif SC', 'Songti SC', serif;
-  --zh-body: 'Noto Sans SC', 'PingFang SC', sans-serif;
+  --zh-head: 'LXGW WenKai', 'Kaiti SC', 'STKaiti', serif;
+  --zh-body: 'Inter', 'LXGW WenKai', 'Kaiti SC', 'STKaiti', serif;
   --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
 
   --head: var(--en-head);
