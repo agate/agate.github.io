@@ -33,6 +33,7 @@ export const projects: Project[] = [
     },
     status: 'building',
     icon: scroll,
+    url: '/shi/',
   },
   {
     name: { en: 'zmk-corne', zh: 'zmk-corne' },
