@@ -53,6 +53,13 @@ class Iso:
         self.circle((x, y1, z), r, "xz", fill=TOP)
         self.circle((x, y1, z), r * 0.35, "xz", fill=LEFT)
 
+    def check(self, c, size, sw=1.2):
+        # a screen-aligned tick on the point c (iso-aligned strokes would read as slanted); size is in iso units.
+        # Its long arm runs past the upper right, as on a box ticked by hand.
+        (x, y), a = self.p(*c), size * self.s
+        self.out.append(f'<path d="M{x - 0.82 * a:.1f},{y - 0.18 * a:.1f} L{x - 0.12 * a:.1f},{y + 0.52 * a:.1f} '
+                        f'L{x + 1.18 * a:.1f},{y - 0.93 * a:.1f}" fill="none" stroke="{INK}" stroke-width="{sw}"/>')
+
     def svg(self, w, h, label):
         # fit the drawing into a w x h box, centered, with a little padding
         xs, ys = [q[0] for q in self.seen], [q[1] for q in self.seen]
@@ -94,6 +101,35 @@ def traffic_light():
     for dx, dz in [(-1.6, 0.0), (-1.4, -0.9), (-1.4, 0.9)]:
         g.line((0.7 + dx * 0.55, 1.6, 2.65 + dz * 0.55), (0.7 + dx, 1.9, 2.65 + dz), stroke="#009e73", extra='stroke-dasharray="2 2"')
     return g.svg(160, 130, "claude-lights: an isometric traffic light with the green lamp lit")
+
+
+def clipboard():
+    # autopilot's own picture: a pilot's checklist on a clipboard. Every autopilot pass starts empty and reads its
+    # steps from files, as a pilot reads the list. Ticked steps are done; the amber box is the step running now.
+    g = Iso(10.5, 80, 40)
+    W, D, H = 6.0, 0.35, 7.6
+    g.box(0, 0, 0, W, D, H)                         # the board, its face toward the lower left
+    px, pz, pw, ph = 0.45, 0.45, W - 0.9, H - 1.25
+    # the sheet lies flat on the board's face: a thin box would double its edges into one heavy line
+    g.poly([(px, D, pz), (px + pw, D, pz), (px + pw, D, pz + ph), (px, D, pz + ph)], fill=LEFT)
+
+    def f(u, v):
+        return (px + u, D, pz + v)
+    lengths, current, side = (2.9, 2.3, 2.7, 2.0), 2, 0.62
+    for i, ln in enumerate(lengths):
+        v, b = ph - 1.75 - i * 1.25, side / 2
+        g.poly([f(0.55, v - b), f(0.55 + side, v - b), f(0.55 + side, v + b), f(0.55, v + b)],
+               fill="#e69f00" if i == current else TOP)
+        g.line(f(1.67, v), f(1.67 + ln, v), stroke=INK if i <= current else "#8f8f8f")
+        if i < current:
+            g.check(f(0.55 + b, v), size=side / 2)
+    # the clip: a plate over the sheet's top edge, with the hanging loop on top
+    cx, cy, cz = W / 2, D + 0.2, H - 0.4
+    g.box(cx - 1.3, D, H - 1.35, 2.6, 0.4, 0.95)
+    ring = [math.pi * i / 18 for i in range(19)]
+    g.poly([(cx + 0.6 * math.cos(t), cy, cz + 0.6 * math.sin(t)) for t in ring]
+           + [(cx + 0.38 * math.cos(t), cy, cz + 0.38 * math.sin(t)) for t in reversed(ring)], fill=LEFT)
+    return g.svg(160, 130, "autopilot: an isometric clipboard checklist with two steps ticked and the current step marked in amber")
 
 
 def scroll():
@@ -147,6 +183,7 @@ def next_box():
 if __name__ == "__main__":
     out = pathlib.Path(__file__).resolve().parent.parent / "src" / "icons"
     out.mkdir(exist_ok=True)
-    for name, fn in {"lights": traffic_light, "scroll": scroll, "keyboard": keyboard, "next": next_box}.items():
+    for name, fn in {"clipboard": clipboard, "lights": traffic_light, "scroll": scroll, "keyboard": keyboard,
+                     "next": next_box}.items():
         (out / f"{name}.svg").write_text(fn() + "\n")
         print(f"wrote src/icons/{name}.svg")

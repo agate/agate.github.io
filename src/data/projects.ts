@@ -1,3 +1,4 @@
+import clipboard from '../icons/clipboard.svg?raw';
 import lights from '../icons/lights.svg?raw';
 import scroll from '../icons/scroll.svg?raw';
 import keyboard from '../icons/keyboard.svg?raw';
@@ -15,6 +16,16 @@ export interface Project {
 
 // Newest or most important first. Add a project here and it shows up on the home page.
 export const projects: Project[] = [
+  {
+    name: { en: 'autopilot', zh: 'autopilot' },
+    blurb: {
+      en: 'A Claude Code plugin: hand Claude a body of work — a Jira epic, one big ticket, or an idea — and stay on the loop, not in it. Every step is a new, empty session that reads its memory from files.',
+      zh: 'Claude Code 插件：把一整块活交给 Claude，比如一个 Jira 史诗、一张大工单或者一个想法，你只管看着、拍板。每一步都是一个全新的空白会话，从文件里读记忆。',
+    },
+    status: 'shipped',
+    icon: clipboard,
+    url: '/autopilot/',
+  },
   {
     name: { en: 'claude-lights', zh: 'claude-lights' },
     blurb: {
